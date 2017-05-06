@@ -14,7 +14,6 @@ public class LoadScene : MonoBehaviour {
 	///<summary>下一個場景名稱</summary>
 	public static string next_Scene;
 
-	// Use this for initialization
 	void Start ()
 	{
 		ToNextScene ();
