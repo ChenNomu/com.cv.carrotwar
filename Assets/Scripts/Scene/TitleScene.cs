@@ -1,7 +1,7 @@
 ﻿/*
  * 標題畫面腳本
  * 編輯者:陳穎駿
- * 最後編輯日期:2017/05/06
+ * 最後編輯日期:2017/05/07
 */
 using UnityEngine;
 using System.Collections;
@@ -19,7 +19,7 @@ public class TitleScene : MonoBehaviour
 	[SerializeField]
 	private UIButton _uiButton;
 
-	public void Start ()
+	void Start ()
 	{
 		gameManager = GameObject.Find ("GameManager").GetComponent<Game_Manager> ();
 		EventDelegate.Add (_uiButton.onClick, PlayAnimation);
@@ -28,7 +28,7 @@ public class TitleScene : MonoBehaviour
 	///<summary>
 	/// 播放動畫
 	/// </summary>
-	public void PlayAnimation ()
+	private void PlayAnimation ()
 	{
 		// TODO. 若要做成連線機制，在此傳送登入資料給伺服器
 
@@ -52,7 +52,7 @@ public class TitleScene : MonoBehaviour
 	///<summary>
 	/// 移動至讀取場景
 	/// </summary>
-	public void ToLoadScene ()
+	private void ToLoadScene ()
 	{
 		// TODO. 需加上設定讀取完後的場景
 		gameManager.LoadScene (SceneList.LoadScene);
@@ -61,8 +61,9 @@ public class TitleScene : MonoBehaviour
 	///<summary>
 	/// 移動至片頭動畫場景
 	/// </summary>
-	public void ToOpeningScene ()
+	private void ToOpeningScene ()
 	{
+		// TODO. 需加上設定讀取完後的場景
 		gameManager.LoadScene (SceneList.OpenningScene);
 	}
 
@@ -70,7 +71,7 @@ public class TitleScene : MonoBehaviour
 	/// 控制Tween開關
 	/// </summary>
 	///<param name="flag">開關設定 true:開 false:關</param>
-	public void TweenControl(bool flag)
+	private void TweenControl(bool flag)
 	{
 		_twAlpha.enabled = flag;
 		_twPosition.enabled = flag;

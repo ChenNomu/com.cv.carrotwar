@@ -1,7 +1,7 @@
 ﻿/*
  * 片頭畫面腳本
  * 編輯者:陳穎駿
- * 最後編輯日期:2017/05/06
+ * 最後編輯日期:2017/05/07
 */
 using UnityEngine;
 using System.Collections;
@@ -25,7 +25,7 @@ public class OpenningScene : MonoBehaviour
 	///<summary>
 	/// 移動至讀取場景
 	/// </summary>
-	public void ToLoadScene ()
+	private void ToLoadScene ()
 	{
 		// TODO. 需加上設定讀取完後的場景
 		gameManager.LoadScene (SceneList.LoadScene);

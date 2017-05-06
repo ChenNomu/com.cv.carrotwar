@@ -4,7 +4,7 @@
  * 主要管理場景的讀取以及刪除不用的場景。
  * 目前因應專案需求，使用直接讀取本地端檔案的方式，往後可依照需求改為連線式的讀取方式。
  * 編輯者:陳穎駿
- * 最後編輯日期:2017/05/06
+ * 最後編輯日期:2017/05/07
 */
 using UnityEngine;
 using System;
@@ -21,6 +21,8 @@ namespace CommonManager
 
 		public static Transform _uiCamera;
 
+		// TODO. 新增彈跳視窗和訊息視窗
+
 		///<summary>場景檔路徑</summary>
 		private string scene_Path = "Prefabs/Scenes/";
 
@@ -31,15 +33,16 @@ namespace CommonManager
 
 		void Start ()
 		{
-//#if RELEASE
+#if DEVELOP
 			PlayerPrefs.DeleteAll ();
+#elif RELEASE
 			LoadScene (SceneList.LogoScene);
-//#endif
+#endif
 		}
 
 		void Update () 
 		{
-#if DEBUG_LOG
+#if DEVELOP
 			if (Input.GetKeyDown (KeyCode.F1))
 			{
 				LoadScene (SceneList.LogoScene);
@@ -53,8 +56,6 @@ namespace CommonManager
 		///<param name="name">場景名稱</param>
 		public void LoadScene (string name)
 		{
-			Debug.Log("<color=green>Load Scene: " + name + "</color>");
-
 			DestroyScene ();
 
 			back_Scene = _Scene;
@@ -72,9 +73,10 @@ namespace CommonManager
 			{
 				DestroyObject (GameObject.FindGameObjectWithTag ("Scene"));
 			}
-			catch (NullReferenceException ex)
+			catch (ArgumentException ex)
 			{
-				Debug.Log ("Can not find the object!");
+				Debug.LogError ("Can't find the object!");
+				return;
 			}
 		}
 
@@ -84,14 +86,23 @@ namespace CommonManager
 		///<param name="name">場景名稱</param>
 		private void CreateScene (string _name)
 		{
-#if DEBUG_LOG
-			Debug.Log ((scene_Path + _name));
-#endif
-			GameObject scene = Instantiate (Resources.Load (scene_Path + _name)) as GameObject;
+			GameObject scene;
+			try
+			{
+				scene = Instantiate (Resources.Load (scene_Path + _name)) as GameObject;
+			}
+			catch (ArgumentException ex)
+			{
+				Debug.LogError ("Can't Instantiate the object! object name: " + scene_Path + _name);
+				return;
+			}
 
 			InitScene (scene, _name);
 
 			scene = null;
+#if DEBUG_LOG
+			Debug.Log(LogMessage("green", "Load Scene: " + _name));
+#endif
 		}
 
 		///<summary>
@@ -106,6 +117,51 @@ namespace CommonManager
 			scene.transform.localPosition = Vector3.zero;
 			scene.transform.localRotation = new Quaternion (0, 0, 0, 0);
 			scene.transform.localScale = new Vector3 (1, 1, 1);
+		}
+
+		///<summary>
+		/// 開啟彈跳視窗
+		/// </summary>
+		private void OpenPopup ()
+		{
+			// TODO. 開啟彈跳視窗
+		}
+
+		///<summary>
+		/// 關閉彈跳視窗
+		/// </summary>
+		private void ClosePopup ()
+		{
+			// TODO. 關閉彈跳視窗
+		}
+
+		///<summary>
+		/// 開啟訊息視窗
+		/// </summary>
+		///<param name="message">訊息</param>
+		///<param name="button_type">按鈕類型(0只有close,1只有ok,2同時有ok和cencel)</param>
+		///<param name="ok_action">ok按鈕功能</param>
+		private void OpenMessage (string message, int button_type, Action ok_action = null)
+		{
+			// TODO. 設定訊息及按鈕類型、依照按鈕類型設定按鈕功能
+		}
+
+		///<summary>
+		/// 關閉視窗
+		/// </summary>
+		private void CloseMessage ()
+		{
+			// TODO. 關閉訊息視窗
+		}
+
+		///<summary>
+		/// 設定Log訊息
+		/// </summary>
+		///<param name="color">顏色</param>
+		///<param name="messge">訊息</param>
+		public string LogMessage (string color, string messge)
+		{
+			return "<color=" + color + ">" + messge + "</color>";
 		}
 	}
 
