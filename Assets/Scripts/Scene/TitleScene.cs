@@ -1,10 +1,8 @@
-﻿#region 腳本說明
-/*
+﻿/*
  * 標題畫面腳本
  * 編輯者:陳穎駿
- * 最後編輯日期:2017/03/03
+ * 最後編輯日期:2017/05/06
 */
-#endregion
 using UnityEngine;
 using System.Collections;
 using CommonManager;
@@ -18,45 +16,54 @@ public class TitleScene : MonoBehaviour
 	private TweenPosition _twPosition;
 	[SerializeField]
 	private TweenAlpha _twAlpha;
+	[SerializeField]
+	private UIButton _uiButton;
 
 	public void Start ()
 	{
 		gameManager = GameObject.Find ("GameManager").GetComponent<Game_Manager> ();
+		EventDelegate.Add (_uiButton.onClick, PlayAnimation);
 	}
 
 	///<summary>
-	/// 移動至下一個場景
+	/// 播放動畫
+	/// </summary>
+	public void PlayAnimation ()
+	{
+		// TODO. 若要做成連線機制，在此傳送登入資料給伺服器
+
+		//@ 執行Tween
+		TweenControl (true);
+
+		//@ 依照狀況增加Tween結束事件
+		if (PlayerPrefs.HasKey (PlayerPrefsKey_Manager.First_Play))
+		{
+			EventDelegate.Add (_twAlpha.onFinished, ToLoadScene);
+		}
+		else
+		{
+			EventDelegate.Add (_twAlpha.onFinished, ToOpeningScene);
+
+			//@ 儲存玩家遊戲進度
+			PlayerPrefs.SetString (PlayerPrefsKey_Manager.First_Play, "true");
+		}
+	}
+
+	///<summary>
+	/// 移動至讀取場景
+	/// </summary>
+	public void ToLoadScene ()
+	{
+		// TODO. 需加上設定讀取完後的場景
+		gameManager.LoadScene (SceneList.LoadScene);
+	}
+
+	///<summary>
+	/// 移動至片頭動畫場景
 	/// </summary>
 	public void ToOpeningScene ()
 	{
 		gameManager.LoadScene (SceneList.OpenningScene);
-	}
-
-	///<summary>
-	/// 移動至下一個場景
-	/// </summary>
-	///<param name="scene">場景名稱</param>
-	public void ToNextScene (string scene)
-	{
-		gameManager.LoadScene (scene);
-	}
-
-	///<summary>
-	/// 畫面點擊事件
-	/// </summary>
-	public void OnClick ()
-	{
-		if (PlayerPrefs.HasKey ("is_first_play")) 
-		{
-			// todo. 設定在讀取畫面中要讀取的資料類型
-
-			ToNextScene(SceneList.LoadScene);
-		}
-		else
-		{
-			TweenControl (true);
-			PlayerPrefs.SetString ("is_first_play", "true");
-		}
 	}
 
 	///<summary>

@@ -1,13 +1,11 @@
-﻿#region 腳本說明
-/*
+﻿/*
  * 場景管理腳本
  * 概要:
  * 主要管理場景的讀取以及刪除不用的場景。
  * 目前因應專案需求，使用直接讀取本地端檔案的方式，往後可依照需求改為連線式的讀取方式。
  * 編輯者:陳穎駿
- * 最後編輯日期:2017/03/03
+ * 最後編輯日期:2017/05/06
 */
-#endregion
 using UnityEngine;
 using System;
 using System.Collections;
@@ -21,7 +19,6 @@ namespace CommonManager
 		///<summary>上一個場景</summary>
 		public static string back_Scene;
 
-		//@ UI介面攝影機
 		public static Transform _uiCamera;
 
 		///<summary>場景檔路徑</summary>
@@ -30,14 +27,11 @@ namespace CommonManager
 		void Awake ()
 		{
 			_uiCamera = GameObject.Find ("UI_Camera").transform;
-
-			//LoadScene (SceneList.LogoScene);
 		}
 
 		void Start ()
 		{
 //#if RELEASE
-			Debug.Log("Test");
 			PlayerPrefs.DeleteAll ();
 			LoadScene (SceneList.LogoScene);
 //#endif
@@ -45,12 +39,12 @@ namespace CommonManager
 
 		void Update () 
 		{
-//#if DEBUG_LOG
-//			if (Input.GetKeyDown (KeyCode.F1))
-//			{
-//				LoadScene (SceneList.LogoScene);
-//			}
-//#endif
+#if DEBUG_LOG
+			if (Input.GetKeyDown (KeyCode.F1))
+			{
+				LoadScene (SceneList.LogoScene);
+			}
+#endif
 		}
 
 		///<summary>
@@ -59,6 +53,8 @@ namespace CommonManager
 		///<param name="name">場景名稱</param>
 		public void LoadScene (string name)
 		{
+			Debug.Log("<color=green>Load Scene: " + name + "</color>");
+
 			DestroyScene ();
 
 			back_Scene = _Scene;
@@ -78,7 +74,7 @@ namespace CommonManager
 			}
 			catch (NullReferenceException ex)
 			{
-				Debug.Log ("No game object called wibble found");
+				Debug.Log ("Can not find the object!");
 			}
 		}
 
