@@ -1,7 +1,7 @@
 ﻿/*
  * 片頭畫面腳本
  * 編輯者:陳穎駿
- * 最後編輯日期:2017/05/07
+ * 最後編輯日期:2017/05/18
 */
 using UnityEngine;
 using System.Collections;
@@ -9,7 +9,6 @@ using CommonManager;
 
 public class OpenningScene : MonoBehaviour
 {
-	///<summary>遊戲管理腳本</summary>
 	private Game_Manager gameManager;
 
 	[SerializeField]
@@ -18,7 +17,6 @@ public class OpenningScene : MonoBehaviour
 	void Start ()
 	{
 		gameManager = GameObject.Find ("GameManager").GetComponent<Game_Manager> ();
-
 		EventDelegate.Add (_uiButton.onClick, ToLoadScene);
 	}
 

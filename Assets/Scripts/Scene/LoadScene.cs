@@ -8,8 +8,8 @@ using System;
 using System.Collections;
 using CommonManager;
 
-public class LoadScene : MonoBehaviour {
-	///<summary>遊戲管理腳本</summary>
+public class LoadScene : MonoBehaviour
+{
 	private Game_Manager gameManager;
 	///<summary>下一個場景名稱</summary>
 	public static string next_Scene;

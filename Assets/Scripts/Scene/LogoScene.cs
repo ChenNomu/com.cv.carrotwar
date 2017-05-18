@@ -1,7 +1,7 @@
 ﻿/*
  * 商標畫面腳本
  * 編輯者:陳穎駿
- * 最後編輯日期:2017/05/07
+ * 最後編輯日期:2017/05/18
 */
 using UnityEngine;
 using System.Collections;
@@ -9,7 +9,7 @@ using CommonManager;
 
 public class LogoScene : MonoBehaviour
 {
-	///<summary>遊戲管理腳本</summary>
+	//@ 遊戲管理腳本
 	private Game_Manager gameManager;
 
 	[SerializeField]
@@ -18,8 +18,7 @@ public class LogoScene : MonoBehaviour
 	void Start ()
 	{
 		gameManager = GameObject.Find ("GameManager").GetComponent<Game_Manager> ();
-
-		// 增加Tween結束事件
+		//@ 增加Tween結束事件
 		EventDelegate.Add (_twAlpha.onFinished, ToTitletScene);
 	}
 
