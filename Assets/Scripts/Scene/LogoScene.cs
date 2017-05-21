@@ -1,7 +1,7 @@
 ﻿/*
  * 商標畫面腳本
  * 編輯者:陳穎駿
- * 最後編輯日期:2017/05/18
+ * 最後編輯日期:2017/05/19
 */
 using UnityEngine;
 using System.Collections;
@@ -27,6 +27,6 @@ public class LogoScene : MonoBehaviour
 	/// </summary>
 	private void ToTitletScene ()
 	{
-		gameManager.LoadScene (SceneList.TitleScene);
+		gameManager.LoadScene (SceneName.TitleScene);
 	}
 }

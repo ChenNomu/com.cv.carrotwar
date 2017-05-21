@@ -12,7 +12,7 @@ public class LoadScene : MonoBehaviour
 {
 	private Game_Manager gameManager;
 	///<summary>下一個場景名稱</summary>
-	public static string next_Scene;
+	public static SceneName next_Scene;
 
 	void Start ()
 	{

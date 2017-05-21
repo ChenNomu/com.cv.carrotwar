@@ -4,7 +4,7 @@
  * 主要管理場景的讀取以及刪除不用的場景。
  * 目前因應專案需求，使用直接讀取本地端檔案的方式，往後可依照需求改為連線式的讀取方式。
  * 編輯者:陳穎駿
- * 最後編輯日期:2017/05/07
+ * 最後編輯日期:2017/05/19
 */
 using UnityEngine;
 using System;
@@ -45,7 +45,7 @@ namespace CommonManager
 #if DEVELOP
 			if (Input.GetKeyDown (KeyCode.F1))
 			{
-				LoadScene (SceneList.LogoScene);
+				LoadScene (SceneName.LogoScene);
 			}
 #endif
 		}
@@ -54,15 +54,15 @@ namespace CommonManager
 		/// 讀取場景
 		/// </summary>
 		///<param name="name">場景名稱</param>
-		public void LoadScene (string name)
+		public void LoadScene (SceneName name)
 		{
 			DestroyScene ();
 
 			back_Scene = _Scene;
-			_Scene = name;
+			_Scene = name.ToString();
 
-			CreateScene (name);
-		} 
+			CreateScene (name.ToString());
+		}
 
 		///<summary>
 		/// 刪除場景
@@ -101,7 +101,7 @@ namespace CommonManager
 
 			scene = null;
 #if DEBUG_LOG
-			Debug.Log(LogMessage("green", "Load Scene: " + _name));
+			Debug.Log(LogMessage(LOG_COLOR.GREEN, "Load Scene: " + _name));
 #endif
 		}
 
@@ -159,30 +159,76 @@ namespace CommonManager
 		/// </summary>
 		///<param name="color">顏色</param>
 		///<param name="messge">訊息</param>
-		public string LogMessage (string color, string messge)
+		public string LogMessage (LOG_COLOR color, string messge)
 		{
-			return "<color=" + color + ">" + messge + "</color>";
+			return "<color=" + color.ToString() + ">" + messge + "</color>";
 		}
 	}
 
 	///<summary>
 	/// 場景列表
 	/// </summary>
-	public class SceneList
-	{
+	public enum SceneName{
 		///<summary>商標畫面</summary>
-		public static string LogoScene = "LogoScene";
+		LogoScene,
 		///<summary>標題畫面</summary>
-		public static string TitleScene = "TitleScene";
+		TitleScene,
 		///<summary>開頭動畫</summary>
-		public static string OpenningScene = "OpenningScene";
+		OpenningScene,
 		///<summary>大地圖畫面</summary>
-		public static string MainScene = "MainScene";
+		MainScene,
 		///<summary>商店畫面</summary>
-		public static string ShopScene = "ShopScene";
+		ShopScene,
 		///<summary>關卡畫面</summary>
-		public static string BattleScene = "BattleScene";
+		BattleScene,
 		///<summary>讀取畫面</summary>
-		public static string LoadScene = "LoadScene";
+		LoadScene
+	}
+
+	///<summary>
+	/// 顏色檢索表
+	/// </summary>
+	public enum LOG_COLOR
+	{
+		///<summary>青色 #00FFFFFF</summary>
+		AQUA,
+		///<summary>黑色 #000000FF</summary>
+		BLACK,
+		///<summary>藍色 #0000FFFF</summary>
+		BLUE,			
+		///<summary>棕色 #A52A2AFF</summary>
+		BROWN,
+		///<summary>深藍色 #0000A0FF</summary>
+		DARKBLUE,
+		///<summary>紫红色 #FF00FFFF</summary>
+		FUCHSIA,
+		///<summary>綠色 #008000FF</summary>
+		GREEN,
+		///<summary>灰色 #808080FF</summary>
+		GREY,
+		///<summary>淺藍色 #ADD8E6FF</summary>
+		LIGHTBLUE,
+		///<summary>清橙綠 #00FF00FF</summary>
+		LIME,
+		///<summary>褐紅色 #800000FF</summary>
+		MAROON,
+		///<summary>海軍藍 #000080FF</summary>
+		NAVY,
+		///<summary>橄欖色 #808000FF</summary>
+		OLIVE,
+		///<summary>橙黃色 #FFA500FF</summary>
+		ORANGE,
+		///<summary>紫色 #800080FF</summary>
+		PURPLE,
+		///<summary>紅色 #FF0000FF</summary>
+		RED,
+		///<summary>銀灰色 #C0C0C0FF</summary>
+		SILVER,
+		///<summary>藍綠色 #008080FF</summary>
+		TEAL,
+		///<summary>白色 #FFFFFFFF</summary>
+		WHITE,
+		///<summary>黃色 #FFFF00FF</summary>
+		YELLOW,
 	}
 }

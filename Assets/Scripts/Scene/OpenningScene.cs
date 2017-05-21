@@ -1,7 +1,7 @@
 ﻿/*
  * 片頭畫面腳本
  * 編輯者:陳穎駿
- * 最後編輯日期:2017/05/18
+ * 最後編輯日期:2017/05/19
 */
 using UnityEngine;
 using System.Collections;
@@ -26,6 +26,6 @@ public class OpenningScene : MonoBehaviour
 	private void ToLoadScene ()
 	{
 		// TODO. 需加上設定讀取完後的場景
-		gameManager.LoadScene (SceneList.LoadScene);
+		gameManager.LoadScene (SceneName.LoadScene);
 	}
 }
