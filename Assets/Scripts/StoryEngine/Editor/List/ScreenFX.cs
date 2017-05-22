@@ -10,7 +10,7 @@ using System.Collections.Generic;
 public class ScreenFX
 {
     ///<summary>下拉式選單列表</summary>
-	public static List<int> commandScreenKey = new List<int>();
+	public static List<int> _key = new List<int>();
     ///<summary>讀取用英文指令</summary>
 	public static string[] _screenFX = new string[] 
 	{
@@ -23,7 +23,7 @@ public class ScreenFX
 		"shake"
 	};
     ///<summary>顯示用中文指令</summary>
-	public static string[] _screenFXIndex = new string[] 
+	public static string[] _index = new string[] 
 	{
 		"設定背景",
 		"設定大標題",
@@ -34,7 +34,7 @@ public class ScreenFX
 		"畫面震動"
 	};
     ///<summary>顯示用中文指令</summary>
-	public static string[] _parameterIndex = new string[] 
+	public static string[] _paramIndex = new string[] 
 	{
 		"檔名",
 		"標題",

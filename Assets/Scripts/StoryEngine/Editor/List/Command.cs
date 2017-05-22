@@ -10,7 +10,7 @@ using System.Collections.Generic;
 public class Command
 {
     ///<summary>下拉式選單列表</summary>
-	public static List<int> commandKey = new List<int>();
+	public static List<int> _key = new List<int>();
     ///<summary>讀取用英文指令</summary>
 	public static string[] _command = new string[] 
 	{
@@ -25,7 +25,7 @@ public class Command
 		"end"
 	};
     ///<summary>顯示用中文指令</summary>
-    public static string[] _commandIndex = new string[]
+    public static string[] _index = new string[]
     {
         "讀取資料",
         "畫面設定",

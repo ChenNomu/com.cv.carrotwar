@@ -10,7 +10,7 @@ using System.Collections.Generic;
 public class LoadFX
 {
     ///<summary>下拉式選單列表</summary>
-	public static List<int> commandLoadKey = new List<int>();
+	public static List<int> _key = new List<int>();
     ///<summary>讀取用英文指令</summary>
 	public static string[] _loadFX = new string[]
 	{
@@ -19,14 +19,14 @@ public class LoadFX
 		"load_scene"
 	};
     ///<summary>顯示用中文指令</summary>
-	public static string[] _loadFXIndex = new string[]
+	public static string[] _index = new string[]
 	{
 		"讀取地圖",
 		"讀取故事",
 		"讀取場景"
 	};
     ///<summary>顯示用中文指令</summary>
-    public static string[] _parameterIndex = new string[]
+    public static string[] _paramIndex = new string[]
     {
         "地圖檔名",
         "故事檔名",

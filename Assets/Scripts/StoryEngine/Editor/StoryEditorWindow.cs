@@ -1,4 +1,11 @@
-﻿using UnityEngine;
+﻿/*
+ * 故事編輯器腳本
+ * 概要:
+ * 製作故事撥放引擎用的JSON檔案。
+ * 編輯者:陳穎駿
+ * 最後編輯日期:2017/05/21
+*/
+using UnityEngine;
 using UnityEditor;
 using System;
 using System.IO;
@@ -53,11 +60,11 @@ public class StoryEditorWindow : EditorWindow
 		_filePath = "";
 		_dialogue = new Dialogue ();
 		_dialogue.storydata = new List<StoryData> ();
-		Command.commandKey = new List<int> ();
-		LoadFX.commandLoadKey = new List<int> ();
-		SoundFX.commandSoundFX = new List<int> ();
-		CharFX.commandCharKey = new List<int> ();
-		ButtonFX.commandButtonKey = new List<int> ();
+		Command._key = new List<int> ();
+		LoadFX._key = new List<int> ();
+		SoundFX._key = new List<int> ();
+		CharFX._key = new List<int> ();
+		ButtonFX._key = new List<int> ();
 	}
 
 	void OnGUI ()
@@ -83,12 +90,12 @@ public class StoryEditorWindow : EditorWindow
 		GUILayout.EndVertical ();
 
 		GUILayout.BeginHorizontal ();
-    		if (GUILayout.Button ("創新檔案", GUILayout.Width (120.0f))) 
+    		if (GUILayout.Button ("創新檔案", GUILayout.Width (80.0f))) 
     		{
                 OpenSaveFilePanel ();
     		}
 
-    		if (GUILayout.Button ("讀取檔案", GUILayout.Width (90.0f)))
+    		if (GUILayout.Button ("讀取JSON檔案", GUILayout.Width (120.0f)))
     		{
     			OpenLoadFilePanel ();
     		}
@@ -262,12 +269,12 @@ public class StoryEditorWindow : EditorWindow
         // @建立顯示用資料
         for(int i = 0; i < _dialogue.storydata.Count; ++i)
         {
-            Command.commandKey.Add(CheckJsonData(Command._command, _dialogue.storydata[i].command));
-            LoadFX.commandLoadKey.Add (CheckJsonData(LoadFX._loadFX, _dialogue.storydata [i].parameter));
-            ScreenFX.commandScreenKey.Add (CheckJsonData(ScreenFX._screenFX, _dialogue.storydata [i].parameter));
-            SoundFX.commandSoundFX.Add(CheckJsonData(SoundFX._soundFX, _dialogue.storydata [i].parameter));
-            CharFX.commandCharKey.Add (CheckJsonData(CharFX._charFX, _dialogue.storydata [i].parameter));
-            ButtonFX.commandButtonKey.Add (CheckJsonData(ButtonFX._buttonFX, _dialogue.storydata [i].parameter));
+			Command._key.Add(CheckJsonData(Command._command, _dialogue.storydata[i].command));
+			LoadFX._key.Add (CheckJsonData(LoadFX._loadFX, _dialogue.storydata [i].parameter));
+			ScreenFX._key.Add (CheckJsonData(ScreenFX._screenFX, _dialogue.storydata [i].parameter));
+            SoundFX._key.Add(CheckJsonData(SoundFX._soundFX, _dialogue.storydata [i].parameter));
+			CharFX._key.Add (CheckJsonData(CharFX._charFX, _dialogue.storydata [i].parameter));
+			ButtonFX._key.Add (CheckJsonData(ButtonFX._buttonFX, _dialogue.storydata [i].parameter));
         }
     }
 
@@ -302,12 +309,12 @@ public class StoryEditorWindow : EditorWindow
 	{
         _dialogue.storydata.Add(InitStoryData());
 
-		Command.commandKey.Add (0);
-		LoadFX.commandLoadKey.Add (0);
-		ScreenFX.commandScreenKey.Add (0);
-		SoundFX.commandSoundFX.Add (0);
-		CharFX.commandCharKey.Add (0);
-		ButtonFX.commandButtonKey.Add (0);
+		Command._key.Add (0);
+		LoadFX._key.Add (0);
+		ScreenFX._key.Add (0);
+		SoundFX._key.Add (0);
+		CharFX._key.Add (0);
+		ButtonFX._key.Add (0);
 	}
 
 	///<summary>
@@ -317,12 +324,12 @@ public class StoryEditorWindow : EditorWindow
 	{
 		_dialogue.storydata.Clear ();
 
-		Command.commandKey.Clear ();
-		LoadFX.commandLoadKey.Clear ();
-		ScreenFX.commandScreenKey.Clear ();
-		SoundFX.commandSoundFX.Clear ();
-		CharFX.commandCharKey.Clear ();
-		ButtonFX.commandButtonKey.Clear ();
+		Command._key.Clear ();
+		LoadFX._key.Clear ();
+		ScreenFX._key.Clear ();
+		SoundFX._key.Clear ();
+		CharFX._key.Clear ();
+		ButtonFX._key.Clear ();
 	}
 
 	///<summary>
@@ -348,60 +355,43 @@ public class StoryEditorWindow : EditorWindow
 	private void ShowScrollview (int key)
 	{
 		GUILayout.BeginHorizontal(GUI.skin.box);
+    		if (GUILayout.Button ("刪除", GUILayout.Width(50.0f)))
+    		{
+    			RemoveData (key);
+    		}
 
-		if (GUILayout.Button ("刪除", GUILayout.Width(50.0f)))
-		{
-			RemoveData (key);
-		}
+    		DataEdit.CommandView (key);
 
-		DataEdit.CommandView (key);
-
-		switch (_dialogue.storydata[key].command) 
-		{
-		    case "load_fx":
-			    DataEdit.LoadFXView (key);
-	            break;
-            case "screen_fx":
-                DataEdit.ScreenFXView(key);
-	            break;
-            case "sound_fx":
-                DataEdit.SoundFXView(key);
-    			break;
-    		case "char_fx":
-    	    // TODO.
-    			CharFX.commandCharKey [key] = EditorGUILayout.Popup ("parameter：", CharFX.commandCharKey [key], CharFX._charFX, GUILayout.Width (200.0f));
-    			_dialogue.storydata[key].parameter = CharFX._charFX[Command.commandKey[key]];
-    			_dialogue.storydata [key].parameter2 = EditorGUILayout.TextField ("parameter2：", _dialogue.storydata [key].parameter2, GUILayout.Width (350.0f));
-    			break;
-    		case "text_out":
-    	    // TODO.
-    	    GUILayout.BeginVertical ();
-    			_dialogue.storydata [key].parameter = EditorGUILayout.TextField ("名字：", _dialogue.storydata [key].parameter, GUILayout.Width (200.0f));
-    			_dialogue.storydata [key].parameter2 = EditorGUILayout.TextField ("對話：", _dialogue.storydata [key].parameter2, GUILayout.Width (350.0f));
-    	    GUILayout.EndVertical ();
-    			break;
-    		case "delay":
-    	    // TODO.
-    			_dialogue.storydata[key].parameter = EditorGUILayout.TextField("延遲時間：", _dialogue.storydata[key].parameter, GUILayout.Width (200.0f));
-    			_dialogue.storydata [key].parameter2 = EditorGUILayout.TextField ("parameter2： ", _dialogue.storydata [key].parameter2, GUILayout.Width (350.0f));
-    			break;
-    		case "button_fx":
-    	    // TODO.
-    			ButtonFX.commandButtonKey [key] = EditorGUILayout.Popup ("parameter：", ButtonFX.commandButtonKey [key], ButtonFX._buttonFX, GUILayout.Width (200.0f));
-    			_dialogue.storydata[key].parameter = ButtonFX._buttonFX[ButtonFX.commandButtonKey[key]];
-    			_dialogue.storydata [key].parameter2 = EditorGUILayout.TextField ("parameter2： ", _dialogue.storydata [key].parameter2, GUILayout.Width (100.0f));
-    			break;
-    		case "control_fx":
-    	    // TODO.
-    			_dialogue.storydata[key].parameter = EditorGUILayout.TextField("parameter：", _dialogue.storydata[key].parameter, GUILayout.Width (200.0f));
-    			_dialogue.storydata [key].parameter2 = EditorGUILayout.TextField ("parameter2：", _dialogue.storydata [key].parameter2, GUILayout.Width (350.0f));
-    			break;
-    		case "end":
-    			_dialogue.storydata[key].parameter = EditorGUILayout.TextField("parameter：", _dialogue.storydata[key].parameter, GUILayout.Width (200.0f));
-    			_dialogue.storydata [key].parameter2 = EditorGUILayout.TextField ("parameter2：", _dialogue.storydata [key].parameter2, GUILayout.Width (350.0f));
-    			break;
-		}
-		
+    		switch (_dialogue.storydata[key].command) 
+    		{
+    		    case "load_fx":
+    			    DataEdit.LoadFXView (key);
+    	            break;
+                case "screen_fx":
+                    DataEdit.ScreenFXView(key);
+    	            break;
+                case "sound_fx":
+                    DataEdit.SoundFXView(key);
+        			break;
+    			case "char_fx":
+    				DataEdit.CharFXView (key);
+        			break;
+        		case "text_out":
+    				DataEdit.TextOutView (key);
+        			break;
+        		case "delay":
+    				DataEdit.DelayView (key);
+        			break;
+        		case "button_fx":
+    				DataEdit.ButtonFXView (key);
+        			break;
+        		case "control_fx":
+    				DataEdit.ControlFXView (key);
+        			break;
+        		case "end":
+    				DataEdit.EndView (key);
+        			break;
+    		}
 		GUILayout.EndHorizontal();
 	}
 
@@ -413,12 +403,12 @@ public class StoryEditorWindow : EditorWindow
 	{
     	_dialogue.storydata.RemoveAt (key);
 
-    	Command.commandKey.RemoveAt (key);
-    	LoadFX.commandLoadKey.RemoveAt (key);
-    	ScreenFX.commandScreenKey.RemoveAt (key);
-    	SoundFX.commandSoundFX.RemoveAt (key);
-    	CharFX.commandCharKey.RemoveAt (key);
-    	ButtonFX.commandButtonKey.RemoveAt (key);
+		Command._key.RemoveAt (key);
+		LoadFX._key.RemoveAt (key);
+		ScreenFX._key.RemoveAt (key);
+		SoundFX._key.RemoveAt (key);
+		CharFX._key.RemoveAt (key);
+		ButtonFX._key.RemoveAt (key);
 
     	// @重新設定編號
     	for (int i = 0; i < _dialogue.storydata.Count; ++i)
