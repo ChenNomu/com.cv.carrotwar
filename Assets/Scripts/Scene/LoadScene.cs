@@ -1,7 +1,7 @@
 ﻿/*
  * 讀取畫面腳本
  * 編輯者:陳穎駿
- * 最後編輯日期:2017/05/07
+ * 最後編輯日期:2017/06/11
 */
 using UnityEngine;
 using System;
@@ -16,6 +16,8 @@ public class LoadScene : MonoBehaviour
 
 	void Start ()
 	{
+        gameManager = GameObject.Find ("GameManager").GetComponent<Game_Manager> ();
+
 		ToNextScene ();
 	}
 
@@ -30,7 +32,7 @@ public class LoadScene : MonoBehaviour
 		}
 		catch (NullReferenceException ex)
 		{
-			Debug.LogError ("next_Scene is null!");
+            Debug.LogError ("next_Scene is null!\n" + ex.Message);
 		}
 	}
 }
