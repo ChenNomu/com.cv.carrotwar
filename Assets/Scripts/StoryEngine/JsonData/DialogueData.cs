@@ -1,10 +1,9 @@
 ﻿/*
  * 故事JSON格式
  * 編輯者:陳穎駿
- * 最後編輯日期:2017/05/21
+ * 最後編輯日期:2017/06/01
 */
 using UnityEngine;
-using UnityEditor;
 using System;
 using System.Collections.Generic;
 

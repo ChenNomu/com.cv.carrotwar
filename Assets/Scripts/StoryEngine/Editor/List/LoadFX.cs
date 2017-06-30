@@ -1,7 +1,7 @@
 ﻿/*
  * 讀取功能列表腳本
  * 編輯者:陳穎駿
- * 最後編輯日期:2017/05/21
+ * 最後編輯日期:2017/06/13
 */
 using UnityEngine;
 using System.Collections;
@@ -9,8 +9,18 @@ using System.Collections.Generic;
 
 public class LoadFX
 {
+	////<summary>下拉式選單Label寬度</summary>
+	public static float _popLabelW = 30.0f;
+	////<summary>下拉式選單寬度</summary>
+	public static float _popWidth = 100.0f;
+	////<summary>輸入框標籤寬度</summary>
+	public static float _labelW = 50.0f;
+	////<summary>輸入框寬度</summary>
+	public static float _width = 350.0f;
+
     ///<summary>下拉式選單列表</summary>
 	public static List<int> _key = new List<int>();
+
     ///<summary>讀取用英文指令</summary>
 	public static string[] _loadFX = new string[]
 	{

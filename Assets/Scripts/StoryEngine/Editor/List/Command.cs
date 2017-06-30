@@ -1,7 +1,7 @@
 ﻿/*
  * 功能設定列表腳本
  * 編輯者:陳穎駿
- * 最後編輯日期:2017/05/21
+ * 最後編輯日期:2017/06/13
 */
 using UnityEngine;
 using System.Collections;
@@ -9,8 +9,14 @@ using System.Collections.Generic;
 
 public class Command
 {
+	///<summary>下拉式選單Label寬度</summary>
+	public static float _popLabelW = 30.0f;
+	///<summary>下拉式選單寬度</summary>
+	public static float _popWidth = 120.0f;
+
     ///<summary>下拉式選單列表</summary>
 	public static List<int> _key = new List<int>();
+
     ///<summary>讀取用英文指令</summary>
 	public static string[] _command = new string[] 
 	{
@@ -20,8 +26,7 @@ public class Command
 		"char_fx",
 		"text_out",
 		"delay",
-		"button_fx",
-		"control_fx",
+		"tutorial",
 		"end"
 	};
     ///<summary>顯示用中文指令</summary>
@@ -33,8 +38,7 @@ public class Command
         "角色設定",
         "對話設定",
         "延遲時間",
-        "設定按鈕功能",
-        "設定玩家控制權",
+        "設定新手教學",
         "結束"
     };
 }

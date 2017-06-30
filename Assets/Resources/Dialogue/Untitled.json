@@ -1,0 +1,15 @@
+{"storydata":[
+{"id":0,"command":"screen_fx","parameter":"pic_fade_in","parameter2":"0.5"},
+{"id":1,"command":"screen_fx","parameter":"set_storytitle","parameter2":"故事劇情測試"},
+{"id":2,"command":"screen_fx","parameter":"set_background","parameter2":"img_bg_hamabe_nig"},
+{"id":3,"command":"screen_fx","parameter":"pic_fade_out","parameter2":"0.5"},
+{"id":4,"command":"screen_fx","parameter":"set_title","parameter2":"場景１"},
+{"id":5,"command":"char_fx","parameter":"chara_l","parameter2":"bunny_boy"},
+{"id":6,"command":"char_fx","parameter":"chara_r","parameter2":"bunny_girl"},
+{"id":7,"command":"char_fx","parameter":"highlight_r","parameter2":"0.5"},
+{"id":8,"command":"text_out","parameter":"bunny boy","parameter2":"測試對話1"},
+{"id":9,"command":"text_out","parameter":"bunny boy","parameter2":"測試對話2"},
+{"id":10,"command":"char_fx","parameter":"highlight_r","parameter2":"1"},
+{"id":11,"command":"char_fx","parameter":"highlight_l","parameter2":"0.5"},
+{"id":12,"command":"text_out","parameter":"bunny girl","parameter2":"測試對話3"},
+{"id":13,"command":"text_out","parameter":"bunny girl","parameter2":"測試對話4"}]}

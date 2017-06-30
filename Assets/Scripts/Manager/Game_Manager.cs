@@ -4,7 +4,7 @@
  * 主要管理場景的讀取以及刪除不用的場景。
  * 目前因應專案需求，使用直接讀取本地端檔案的方式，往後可依照需求改為連線式的讀取方式。
  * 編輯者:陳穎駿
- * 最後編輯日期:2017/05/21
+ * 最後編輯日期:2017/06/11
 */
 using UnityEngine;
 using System;
@@ -65,6 +65,20 @@ namespace CommonManager
 		}
 
 		///<summary>
+		/// 讀取場景
+		/// </summary>
+		///<param name="name">場景名稱</param>
+		public void LoadScene(string name)
+		{
+			DestroyScene ();
+
+			back_Scene = _Scene;
+			_Scene = name;
+
+			CreateScene (name);
+		}
+
+		///<summary>
 		/// 刪除場景
 		/// </summary>
 		private void DestroyScene()
@@ -75,7 +89,7 @@ namespace CommonManager
 			}
 			catch (ArgumentException ex)
 			{
-				Debug.LogError ("Can't find the object!");
+                Debug.LogError ("Can't find the object! \n" + ex.Message);
 				return;
 			}
 		}
@@ -93,7 +107,7 @@ namespace CommonManager
 			}
 			catch (ArgumentException ex)
 			{
-				Debug.LogError ("Can't Instantiate the object! object name: " + scene_Path + _name);
+                Debug.LogError ("Can't Instantiate the object! object name: " + scene_Path + _name + "\n" + ex.Message);
 				return;
 			}
 
